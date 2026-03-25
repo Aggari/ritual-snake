@@ -552,11 +552,11 @@ let lbCache = [];
 let playerName = 'Serpent';
 
 // Realtime listener
-lbRef.orderByChild('score').limitToLast(MAX_LB).on('value', (snapshot) => {
+lbRef.on('value', (snapshot) => {
   const entries = [];
   snapshot.forEach(child => entries.push(child.val()));
   entries.sort((a, b) => b.score - a.score);
-  lbCache = entries;
+  lbCache = entries.slice(0, MAX_LB);
   renderLb('lobbyLbList', lbCache);
   renderLb('gameLbList', lbCache);
 });
