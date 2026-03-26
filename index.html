@@ -534,13 +534,13 @@ foodImg.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0
 
 // ═══════════════════════ FIREBASE LEADERBOARD ═══════════════════════
 const firebaseConfig = {
-  apiKey: "AIzaSyBFPO58nKMSUvW6QXVMD688iVKR6cVsnPU",
-  authDomain: "ritual-marbles.firebaseapp.com",
-  databaseURL: "https://ritual-marbles-default-rtdb.firebaseio.com",
-  projectId: "ritual-marbles",
-  storageBucket: "ritual-marbles.firebasestorage.app",
-  messagingSenderId: "236891878701",
-  appId: "1:236891878701:web:f342e67c8c5d49d61e4fa4"
+  apiKey: "AIzaSyDOE4pZFmgKreCHPVQ9UUu0xNWq0fcfWLw",
+  authDomain: "ritual-snake.firebaseapp.com",
+  databaseURL: "https://ritual-snake-default-rtdb.firebaseio.com",
+  projectId: "ritual-snake",
+  storageBucket: "ritual-snake.firebasestorage.app",
+  messagingSenderId: "1011562565418",
+  appId: "1:1011562565418:web:c4855a9e5485ea19b69853"
 };
 
 let fbApp, db, lbRef;
@@ -552,7 +552,7 @@ let playerName = 'Serpent';
 function initFirebase() {
   fbApp = firebase.initializeApp(firebaseConfig);
   db = firebase.database();
-  lbRef = db.ref('snake-leaderboard');
+  lbRef = db.ref('leaderboard');
 
   // Realtime listener
   lbRef.on('value', (snapshot) => {
