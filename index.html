@@ -543,23 +543,27 @@ const firebaseConfig = {
   appId: "1:236891878701:web:f342e67c8c5d49d61e4fa4"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const lbRef = db.ref('snake-leaderboard');
+let fbApp, db, lbRef;
 const MAX_LB = 20;
 
 let lbCache = [];
 let playerName = 'Serpent';
 
-// Realtime listener
-lbRef.on('value', (snapshot) => {
-  const entries = [];
-  snapshot.forEach(child => entries.push(child.val()));
-  entries.sort((a, b) => b.score - a.score);
-  lbCache = entries.slice(0, MAX_LB);
-  renderLb('lobbyLbList', lbCache);
-  renderLb('gameLbList', lbCache);
-});
+function initFirebase() {
+  fbApp = firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  lbRef = db.ref('snake-leaderboard');
+
+  // Realtime listener
+  lbRef.on('value', (snapshot) => {
+    const entries = [];
+    snapshot.forEach(child => entries.push(child.val()));
+    entries.sort((a, b) => b.score - a.score);
+    lbCache = entries.slice(0, MAX_LB);
+    renderLb('lobbyLbList', lbCache);
+    renderLb('gameLbList', lbCache);
+  });
+}
 
 function renderLb(targetId, lb) {
   const el = document.getElementById(targetId);
@@ -986,6 +990,7 @@ document.addEventListener('touchmove', e => {
 // ═══════════════════════ INIT ═══════════════════════
 window.addEventListener('load', () => {
   setupCanvas();
+  initFirebase();
   initLobby();
   // Wire buttons
   document.getElementById('startBtn').addEventListener('click', startGame);
